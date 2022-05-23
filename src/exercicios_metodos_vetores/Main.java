@@ -82,6 +82,8 @@ class Main {
    System.out.printf("\n    Nota Final = %.2f pts", notaFinal);
    System.out.printf("\n    Situação = %s", avaliarSituacao(notaFinal));
    calcularMedia(notas);
+   System.out.printf("\n    %s",maiorNota(notas));
+
 
  } // Fim do método mostrarNotas()
 
@@ -100,7 +102,41 @@ class Main {
  }// Fim do método calcularMedia()
 
 
- 
+ /**
+  * @param o resultado das 3 avaliações feitas pelo estudante
+  * @return uma string com o nome da maior nota dele no semestre dentre as avaliações
+  */
+  static String maiorNota(double[] notas) {
+ 	 
+ 	 int maior = Integer.MIN_VALUE;
+ 	 int indiceMaior = -1;
+ 	 String avaliacao = "";
+  
+ 	 for (int i = 0; i < notas.length; i++) {
+ 	     if (notas[i] > maior) {
+ 	         maior = (int) notas[i];
+ 	         indiceMaior = i;
+ 	     }
+ 	 }
+ 	 switch (indiceMaior) {
+ 	  case 0:
+ 	    avaliacao = "A1";
+ 	    break;
+ 	  case 1:
+ 		 avaliacao = "A2";
+ 	    break;
+ 	  case 2:
+ 		 avaliacao = "A3";
+ 	    break;
+ 	  default:
+ 		 avaliacao = "Sem avaliação ";
+ 	 }
+ 	 
+ 	 return "A maior nota do semestre é " + maior + " na avaliação " + avaliacao;
+
+    
+  } // Fim do método maiorNota()
+
 /**
  * Exibe o menu principal da aplicação
  */
