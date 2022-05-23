@@ -40,16 +40,14 @@ class Main {
  */
  static void substituirMenorNota(double[] notas) {
 	 int menor = Integer.MAX_VALUE;
- 	 int indiceMenor = -1;
   
  	 for (int i = 0; i < notas.length; i++) {
  	     if (notas[i] < menor) {
  	    	menor = (int) notas[i];
- 	        indiceMenor = i;
  	     }
  	 }
    System.out.println();
-   notas[indiceMenor] = lerNota(NOMES_AVALIACOES[indiceMenor], NOTA_MAX_AVALIACOES[indiceMenor]);
+   notas[menor] = lerNota(NOMES_AVALIACOES[menor], NOTA_MAX_AVALIACOES[menor]);
  
  } // Fim do método atualizarNota
 
