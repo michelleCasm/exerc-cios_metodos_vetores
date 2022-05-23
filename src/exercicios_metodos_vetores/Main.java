@@ -11,6 +11,7 @@ class Main {
  static final double[] NOTA_MAX_AVALIACOES = { 30.00, 30.00, 40.00 };
  
  static double[] notas = new double [TOTAL_AVALIACOES];
+ static double notaFinal = 0.0;
 
  
  /**
@@ -34,6 +35,25 @@ class Main {
 
  
  /**
+ * substituir a menor nota e mostrar na tela a situação final do aluno
+ * @param indiceNota um número inteiro representando o índice (posição) da nota no vetor
+ */
+ static void substituirMenorNota(double[] notas) {
+	 int menor = Integer.MAX_VALUE;
+ 	 int indiceMenor = -1;
+  
+ 	 for (int i = 0; i < notas.length; i++) {
+ 	     if (notas[i] < menor) {
+ 	    	menor = (int) notas[i];
+ 	        indiceMenor = i;
+ 	     }
+ 	 }
+   System.out.println();
+   notas[indiceMenor] = lerNota(NOMES_AVALIACOES[indiceMenor], NOTA_MAX_AVALIACOES[indiceMenor]);
+ 
+ } // Fim do método atualizarNota
+
+ /**
  * Atualiza o valor da respectiva nota do estudante
  * @param indiceNota um número inteiro representando o índice (posição) da nota no vetor
  */
@@ -43,30 +63,58 @@ class Main {
    notas[indiceNota] = lerNota(NOMES_AVALIACOES[indiceNota], NOTA_MAX_AVALIACOES[indiceNota]);
  
  } // Fim do método atualizarNota
-
+ 
  
 /**
- * @param notaFinal A soma de todas as avalições feita pelo estudante ao longo do semestre
+ * funcionalidade que leia do usuário a nota da Avaliação Integrada (AI) 
  * @return uma string representando o status final do estudante, são eles: APROVADO, REPROVADO, EM RECUPERAÇÃO.
  */
- static String avaliarSituacao(double notaFinal) {
+ static void lerAvaliacaoIntegrada() {
 
-   if(notaFinal < 30)
-     return "REPROVADO";
-   else if (notaFinal < 70)
-     return "EM RECUPERAÇÃO";
-   else
-     return "APROVADO";
-   
- } // Fim do método avaliarSituacao()
+ 	 if (avaliarSituacao(notaFinal).equals(StatusEnum.EM_RECUPERAÇÃO.getStatus())) {
+ 		   substituirMenorNota(notas);
+		   System.out.printf("\n    Situação = %s após a Avaliação Integrada (AI)", avaliarSituacao(notaFinal));   
+ 	 }
+ } // Fim do método lerAvaliacaoIntegrada()
+
+ public enum StatusEnum {
+	 
+	 REPROVADO("REPROVADO"),
+	 EM_RECUPERAÇÃO("EM RECUPERAÇÃO"), 
+	 APROVADO("APROVADO");
+
+	 private String status;
+
+	 StatusEnum(String descricao) {
+	    this.status = descricao;
+	 }
+
+	 public String getStatus() {
+	     return status;
+	 }
+}
  
+ /**
+  * @param notaFinal A soma de todas as avalições feita pelo estudante ao longo do semestre
+  * @return uma string representando o status final do estudante, são eles: APROVADO, REPROVADO, EM RECUPERAÇÃO.
+  */
+  static String avaliarSituacao(double notaFinal) {
+
+    if(notaFinal < 30)
+      return StatusEnum.REPROVADO.getStatus();
+    else if (notaFinal < 70)
+      return StatusEnum.EM_RECUPERAÇÃO.getStatus();
+    else
+      return StatusEnum.APROVADO.getStatus();
+    
+  } // Fim do método avaliarSituacao()
 
  /**
  * Mostra na tela um relatório das notas do estudante
  */
+  
  static void mostrarNotas() {
 
-   double notaFinal = 0.0;
 
    System.out.println("\n\t\tNOTAS");
    System.out.println();
@@ -83,7 +131,7 @@ class Main {
    System.out.printf("\n    Situação = %s", avaliarSituacao(notaFinal));
    calcularMedia(notas);
    System.out.printf("\n    %s",maiorNota(notas));
-
+   lerAvaliacaoIntegrada();
 
  } // Fim do método mostrarNotas()
 
