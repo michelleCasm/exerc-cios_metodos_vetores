@@ -79,10 +79,26 @@ class Main {
    
    }
 
-   System.out.printf("\n  Nota Final = %.2f pts", notaFinal);
+   System.out.printf("\n    Nota Final = %.2f pts", notaFinal);
    System.out.printf("\n    Situação = %s", avaliarSituacao(notaFinal));
+   calcularMedia(notas);
 
  } // Fim do método mostrarNotas()
+
+
+  /**
+  * Mostra na tela a nota aritimética
+  */
+ static void calcularMedia(double[] notas) {
+     int media = 0;
+     for(int i = 0; i < notas.length; i++)
+         media += notas[i];
+
+     int total =  media / notas.length;
+
+ 	System.out.printf("\n    Média Aritimética = " + total);
+ }// Fim do método calcularMedia()
+
 
  
 /**
